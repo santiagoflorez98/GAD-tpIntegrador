@@ -1,16 +1,36 @@
-# This is a sample Python script.
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+from tkinter import filedialog as fd
+from PIL import Image, ImageTk
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def abrirNombre():
+    filetypes = (
+        ('png files', '*.png'),
+        ('All files', '*.*')
+    )
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    filename = fd.askopenfilename(
+        title='Elegí una imagen',
+        initialdir='/',
+        filetypes=filetypes)
+
+    return filename
+
+def abrirImagen():
+    aux= abrirNombre()
+    img = ImageTk.PhotoImage(Image.open(aux))
+    imglabel = Label(root, image=img)
+    imglabel.grid(row=1, column=0)
+    imglabel.image = img
+
+root = tk.Tk()
+frm = ttk.Frame(root, padding=10)
+frm.grid()
+ttk.Label(frm, text="Cargue un archivo").grid(column=0, row=0)
+ttk.Button(frm, text="Cargar", command=abrirImagen).grid(column=1,row=0)
+ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=2)
+
+root.mainloop()
