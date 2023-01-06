@@ -22,7 +22,6 @@ transforms = torchvision.transforms.Compose([
     torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-
 def get_vector(image):
     # Create a PyTorch tensor with the transformed image
     t_img = transforms(image)
@@ -44,7 +43,7 @@ def get_vector(image):
     # Return the feature vector
     return my_embedding
 
-
+"""
 pic_vector = get_vector(img)
 pic2_vector = get_vector(img2)
 
@@ -52,3 +51,4 @@ cos = nn.CosineSimilarity(dim=1, eps=1e-6)
 cos_sim = cos(pic_vector.unsqueeze(0),
               pic2_vector.unsqueeze(0))
 print('\nCosine similarity: {0}\n'.format(cos_sim))
+"""
