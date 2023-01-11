@@ -1,7 +1,11 @@
 import psycopg2
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 class database():
     def __init__(self):
-        self.conn = psycopg2.connect("dbname= TPGAD user=postgres password=321")
+        self.conn = psycopg2.connect(config['DATABASE']['DB_STRING'])
         self.cur = self.conn.cursor()
     def desconectar_db(self):
         self.cur = self.cur.close()

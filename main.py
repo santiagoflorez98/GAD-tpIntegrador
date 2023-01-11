@@ -3,9 +3,14 @@ from pathlib import Path
 import vectorize as vec
 import database as db
 import interfaz
+import configparser
+
+config = configparser.ConfigParser()
+config.read("config.ini")
+
 def cargarEnDb():
     base = db.database()
-    directory = 'C:/Users/santi/OneDrive/Escritorio/xd'
+    directory = config['DEFAULT']['IMAGENES']
     files = Path(directory).glob('*')
     for file in files:
         act_vec = vec.get_vector(Image.open(file).convert('RGB'))
