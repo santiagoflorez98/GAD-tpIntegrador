@@ -4,8 +4,8 @@ import torchvision.models as models
 from PIL import Image
 import torch.nn as nn
 
-img = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
-img2 = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
+#img = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
+#img2 = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
 # Load the pretrained model
 model = models.resnet18(weights='DEFAULT')
 
