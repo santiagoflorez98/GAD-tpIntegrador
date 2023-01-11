@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
-
 import torch
 from PIL import Image, ImageTk
 from pathlib import Path
@@ -39,8 +38,8 @@ ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
 
 root.mainloop()"""
 
-directory = 'C:/Users/santi/OneDrive/Escritorio/asdas'
+directory = 'C:/Users/santi/OneDrive/Escritorio/TestGADRed'
 files = Path(directory).glob('*')
 for file in files:
     act_vec = vec.get_vector(Image.open(file).convert('RGB'))
-    db.insertar_imagen(act_vec.tolist(),file.name)
+    db.insertar_imagen(act_vec.tolist(),str(file))
