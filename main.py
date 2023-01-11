@@ -4,10 +4,13 @@ import vectorize as vec
 import database as db
 import interfaz
 def cargarEnDb():
-    directory = 'C:/Users/santi/OneDrive/Escritorio/TestGADRed'
+    base = db.database()
+    directory = 'C:/Users/santi/OneDrive/Escritorio/xd'
     files = Path(directory).glob('*')
     for file in files:
         act_vec = vec.get_vector(Image.open(file).convert('RGB'))
-        db.insertar_imagen(act_vec.tolist(),str(file))
+        base.consulta_cargar(act_vec.tolist(),str(file))
+    base.desconectar_db()
 
-interfaz.ventanaPrincipal()
+#interfaz.ventanaPrincipal()
+cargarEnDb()
