@@ -22,3 +22,9 @@ class database():
         self.cur.execute("INSERT INTO vectores(vector,ruta) VALUES (%s, %s)", (vec, ruta))
         self.conn.commit()
 
+    def consulta_db(self,vec,radio):
+        self.cur.execute("SELECT * FROM consulta(%s,%s)",(vec,radio))
+        record = self.cur.fetchall()
+        self.conn.commit()
+        return record;
+
