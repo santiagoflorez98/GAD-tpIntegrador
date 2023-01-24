@@ -39,13 +39,13 @@ def consultarImagen(radio,ruta):
         img1label = Label(image=img1)
         var = StringVar()
         distancelabel = Label(textvariable=var)
-        var.set('Distancia: '+ str(r[1]))
-        if (idx+3>7):
-            img1label.grid(row=idx-3, column=0)
-            distancelabel.grid(row=idx-3, column=1)
+        var.set(str(idx + 1) + ' - Distancia: '+ str(r[1]))
+        if (idx%2 == 0 ):
+            img1label.grid(row=idx+2, column=0)
+            distancelabel.grid(row=idx+2, column=1)
         else:
-            img1label.grid(row=idx+2, column=2)
-            distancelabel.grid(row=idx + 2, column=3)
+            img1label.grid(row=idx+1, column=2)
+            distancelabel.grid(row=idx + 1, column=3)
 
         img1label.image = img1
 
