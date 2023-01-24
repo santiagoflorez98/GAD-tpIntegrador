@@ -24,10 +24,6 @@ def abrirNombre():
 
 def abrirImagen(ruta):
     aux = abrirNombre()
-    #img = ImageTk.PhotoImage(Image.open(aux))
-    #imglabel = Label(image=img)
-    #imglabel.grid(row=0,column=3)
-    #imglabel.image = img
     ruta.set(aux)
 
     return ruta
@@ -67,12 +63,13 @@ def generar_labels(container,ruta,radio):
 
     # Imagen label
     rutaActual = ruta.get()
-    ttk.Label(frame, text='Imagen:').grid(column=0, row=0, sticky=tk.N,)
+    rutaSegmentada=rutaActual.split('/')
+    ttk.Label(frame, text='Imagen:').grid(column=0, row=0, sticky=tk.N)
     if rutaActual== '':
         img_l= ttk.Label(frame,text='No hay imagen seleccionada')
         img_l.grid(column=1,row=0, sticky=tk.N)
     else:
-        img_l=ttk.Label(frame, text=ruta.get())
+        img_l=ttk.Label(frame, text=str(next(reversed(rutaSegmentada))))
         img_l.grid(column=1, row=0, sticky=tk.N)
         img = ImageTk.PhotoImage(Image.open(ruta.get()))
         imglabel = Label(image=img)
@@ -121,10 +118,10 @@ def ventanaPrincipal():
     root.resizable(0, 0)
 
     try:
-        # windows only (remove the minimize/maximize button)
+        # solo windows (remover boton de minimizar/maximizar)
         root.attributes('-toolwindow', True)
     except TclError:
-        print('Not supported on your platform')
+        print('Funcion no disponible en tu sistema')
 
     ruta=tk.StringVar()
     ruta.set('')
@@ -147,12 +144,10 @@ def ventanaPrincipal():
     #Esperando que se ingrese radio y ruta
     root.wait_variable(ruta)
     labels_frame.destroy()
-    print('ruta es '+ruta.get())
     labels_frame=generar_labels(root,ruta,radio)
     labels_frame.grid(column=0, row=0)
 
     root.wait_variable(radio)
-    print('radio es'+radio.get())
     labels_frame.destroy()
     labels_frame=generar_labels(root,ruta,radio)
     labels_frame.grid(column=0,row=0)
