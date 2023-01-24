@@ -1,14 +1,10 @@
 import torch
 import torchvision
 import torchvision.models as models
-from PIL import Image
-import torch.nn as nn
 
-#img = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
-#img2 = Image.open("C:/Users/santi/OneDrive/Escritorio/297.png").convert('RGB')
 # Load the pretrained model
-model = models.resnet18(weights='DEFAULT')
-
+weights = models.ResNet50_Weights.IMAGENET1K_V2
+model = models.resnet50(weights=weights)
 # Use the model object to select the desired layer
 layer = model._modules.get('avgpool')
 
@@ -26,8 +22,8 @@ def get_vector(image):
     # Create a PyTorch tensor with the transformed image
     t_img = transforms(image)
     # Create a vector of zeros that will hold our feature vector
-    # The 'avgpool' layer has an output size of 512
-    my_embedding = torch.zeros(512)
+    # The 'avgpool' layer has an output size of 2048
+    my_embedding = torch.zeros(2048)
 
     # Define a function that will copy the output of a layer
     def copy_data(m, i, o):
@@ -42,13 +38,3 @@ def get_vector(image):
     h.remove()
     # Return the feature vector
     return my_embedding
-
-"""
-pic_vector = get_vector(img)
-pic2_vector = get_vector(img2)
-
-cos = nn.CosineSimilarity(dim=1, eps=1e-6)
-cos_sim = cos(pic_vector.unsqueeze(0),
-              pic2_vector.unsqueeze(0))
-print('\nCosine similarity: {0}\n'.format(cos_sim))
-"""
