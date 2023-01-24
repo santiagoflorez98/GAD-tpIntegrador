@@ -16,7 +16,7 @@ def cargarEnDb():
         base.consulta_cargar(act_vec.tolist(),str(file))
     base.desconectar_db()
 
-def consulta(radio, ruta):
+def consulta(ruta, radio):
     base= db.database()
     vect= vec.get_vector(Image.open(ruta).convert('RGB'))
     resultado=base.consulta_db(vect.tolist(),radio)
