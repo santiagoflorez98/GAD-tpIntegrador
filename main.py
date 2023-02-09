@@ -1,4 +1,6 @@
+import controlador
 import interfaz
 
-interfaz.ventanaPrincipal()
+#interfaz.ventanaPrincipal()
 #cargarEnDb()
+controlador.consultas()

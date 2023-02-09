@@ -3,8 +3,8 @@ import torchvision
 import torchvision.models as models
 
 # Load the pretrained model
-weights = models.ResNet50_Weights.IMAGENET1K_V2
-model = models.resnet50(weights=weights)
+weights = models.ResNet18_Weights.IMAGENET1K_V1
+model = models.resnet18(weights=weights)
 # Use the model object to select the desired layer
 layer = model._modules.get('avgpool')
 
@@ -22,8 +22,7 @@ def get_vector(image):
     # Create a PyTorch tensor with the transformed image
     t_img = transforms(image)
     # Create a vector of zeros that will hold our feature vector
-    # The 'avgpool' layer has an output size of 2048
-    my_embedding = torch.zeros(2048)
+    my_embedding = torch.zeros(512)
 
     # Define a function that will copy the output of a layer
     def copy_data(m, i, o):
