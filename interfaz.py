@@ -71,10 +71,12 @@ def generar_labels(container,ruta,radio):
     else:
         img_l=ttk.Label(frame, text=str(next(reversed(rutaSegmentada))))
         img_l.grid(column=1, row=0, sticky=tk.N)
-        img = ImageTk.PhotoImage(Image.open(ruta.get()))
-        imglabel = Label(image=img)
+        img = Image.open(ruta.get())
+        resize_image= img.resize((200,200))
+        img_r= ImageTk.PhotoImage(resize_image)
+        imglabel = Label(image=img_r)
         imglabel.grid(row=0,column=3, sticky=tk.N,columnspan=4)
-        imglabel.image = img
+        imglabel.image = img_r
 
     # Radio label 2
     radioActual=radio.get()
