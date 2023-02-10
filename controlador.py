@@ -3,10 +3,8 @@ from PIL import Image
 import vectorize as vec
 import database as db
 import configparser
-
 config = configparser.ConfigParser()
 config.read("config.ini")
-
 def cargarEnDb():
     base = db.database()
     directory = config['DEFAULT']['IMAGENES']
@@ -46,8 +44,8 @@ def consultas():
     acumuladorCoincidencias = 0
     contadorPrimeraCoincidencia = 0
     for i in range(1,51):
-        res = contarCoincidencias(f'C:/Users/santi/OneDrive/Escritorio/consultasOriginales/{i}.png'
-                            ,f'C:/Users/santi/OneDrive/Escritorio/consultasOtras/{i}.png')
+        res = contarCoincidencias(config['DEFAULT']['ORIGINALES'] + f'/{i}.png'
+                            ,config['DEFAULT']['COPIAS'] + f'/{i}.png')
         print (f'Imagen {i} - numero de coincidencias: {res[0]}')
         acumuladorCoincidencias += res[0]
         if (res[1]):
