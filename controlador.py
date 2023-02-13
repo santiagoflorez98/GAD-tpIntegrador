@@ -1,6 +1,6 @@
 from pathlib import Path
 from PIL import Image
-import vectorize as vec
+import vectorizacion as vec
 import database as db
 import configparser
 config = configparser.ConfigParser()
@@ -20,6 +20,10 @@ def consulta(ruta, radio):
     resultado=base.consulta_db(vect.tolist(),radio)
     base.desconectar_db()
     return resultado
+
+def PruebaPesos():
+    vect= vec.get_vector(Image.open(config['DEFAULT']['ORIGINALES'] + '/1.png').convert('RGB'))
+    print(vect)
 
 def contarCoincidencias(rutaOr, rutaCopia):
     primeraCoincidencia = False
