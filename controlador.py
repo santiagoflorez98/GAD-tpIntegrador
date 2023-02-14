@@ -22,39 +22,36 @@ def consulta(ruta, radio):
     return resultado
 
 def PruebaPesos():
-    vect= vec.get_vector(Image.open(config['DEFAULT']['ORIGINALES'] + '/1.png').convert('RGB'))
+    vect= vec.get_vector(Image.open(config['DEFAULT']['COPIAS'] + '/47.png').convert('RGB'))
     print(vect)
-
-def contarCoincidencias(rutaOr, rutaCopia):
-    primeraCoincidencia = False
-    coincidencias = 0
-    resOriginal = consulta(rutaOr,0.3)
-    resCopia = consulta(rutaCopia,0.3)
-    tamañoOriginal = len(resOriginal)
-    tamañoCopia = len(resCopia)
+def contarCoincidencias(ruta):
+    coincidencia = False
+    lugarCoincidencia = -1
+    res = consulta(ruta,0.3)
+    tamañoRes = len(res)
     i = 0
-    while (i < 5 | i < tamañoOriginal):
-        j = 0
-        while ((resOriginal[i][2] != resCopia[j][2]) & (j<4 | j<tamañoCopia)):
-            j += 1
-        if resOriginal[i][2] == resCopia[j][2]:
-            coincidencias +=1
-            if (i == 0):
-                primeraCoincidencia = True
+    resultadoEsperado=str(ruta).split('_')[1]
+    while ((i < 5 | i < tamañoRes) & (~coincidencia)):
+        if (res[i][2].split('\\')[-1] == resultadoEsperado):
+            coincidencia = True
+            lugarCoincidencia = i
         i += 1
-    return coincidencias,primeraCoincidencia
+    return coincidencia, lugarCoincidencia
 
 def consultas():
-    acumuladorCoincidencias = 0
-    contadorPrimeraCoincidencia = 0
-    for i in range(1,51):
-        res = contarCoincidencias(config['DEFAULT']['ORIGINALES'] + f'/{i}.png'
-                            ,config['DEFAULT']['COPIAS'] + f'/{i}.png')
-        print (f'Imagen {i} - numero de coincidencias: {res[0]}')
-        acumuladorCoincidencias += res[0]
-        if (res[1]):
-            print('hubo coincidencia en la primera imagen')
-            contadorPrimeraCoincidencia +=1
-    porcentajePrimeraCoincidencia = (contadorPrimeraCoincidencia / 50) * 100
-    porcentajeCoincidencias = (acumuladorCoincidencias / 250) * 100
-    return porcentajeCoincidencias,porcentajePrimeraCoincidencia
+    contadorPrimeraPosicion = 0
+    contadorCoincidencia = 0
+    directory = config['DEFAULT']['COPIAS']
+    files = Path(directory).glob('*')
+    for i in files:
+        res = contarCoincidencias(i)
+        if (res[0]):
+            contadorCoincidencia += 1
+            if (res[1] == 0):
+                contadorPrimeraPosicion += 1
+            print(f'Hubo coincidencia en la posicion {res[1]} para la imagen {i}')
+        else:
+            print(f'No hubo coincidencias para la imagen {i}')
+    porcentajePrimeraPosicion = contadorPrimeraPosicion / 50 * 100
+    porcentajeCoincidencias = contadorCoincidencia / 50 * 100
+    return contadorPrimeraPosicion,contadorCoincidencia, porcentajePrimeraPosicion, porcentajeCoincidencias
